@@ -29,7 +29,12 @@ if user_type == "New User":
     days_employed = st.number_input("No. of Days Employed", min_value=0.0)
     total_family = st.slider("Family Members", 0, 10, 1)
     owns_house = st.selectbox("Owns House?", ["Yes", "No"])
-    occupation_type = st.selectbox("Occupation Type", ["Laborers", "Core staff", "Managers", "Other"])
+    occupation_type = st.selectbox("Occupation Type", [
+        "Accountants", "Cleaning staff", "Cooking staff", "Core staff", "Drivers",
+        "High skill tech staff", "HR staff", "IT staff", "Laborers", "Low-skill Laborers",
+        "Managers", "Medicine staff", "Private service staff", "Realty agents", "Sales staff",
+        "Secretaries", "Security staff", "Unknown", "Waiters/barmen staff"
+    ])
 
     user_input = pd.DataFrame({
         "age": [age],
