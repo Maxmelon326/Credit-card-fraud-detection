@@ -13,7 +13,7 @@ expected_existing_user_columns = joblib.load("expected_existing_user_columns.pkl
 
 
 # Load dataset to identify existing users
-train_data = pd.read_csv("train.csv")
+train_data = pd.read_csv("test.csv")
 
 st.title("🏦 FinTech Credit Risk Assessment Demo")
 
