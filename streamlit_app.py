@@ -9,6 +9,8 @@ from lightgbm import LGBMClassifier
 new_user_model = joblib.load("new_user_model")
 existing_user_model = joblib.load("existing_user_model")
 expected_new_user_cols = joblib.load("expected_new_user_columns.pkl")  # Add this line
+expected_existing_user_columns = joblib.load("expected_existing_user_columns.pkl")
+
 
 # Load dataset to identify existing users
 train_data = pd.read_csv("train.csv")
@@ -97,9 +99,17 @@ elif user_type == "Existing User":
             # Feature Engineering
             X_existing['income_per_member'] = X_existing['net_yearly_income'] / (X_existing['total_family_members'] + 1)
 
-            # Impute
+            # Apply imputer
             imputer = SimpleImputer(strategy='median')
             X_existing = pd.DataFrame(imputer.fit_transform(X_existing), columns=X_existing.columns)
+            
+            # Align columns with training
+            for col in expected_existing_user_columns:
+                if col not in X_existing.columns:
+                    X_existing[col] = 0
+            
+            X_existing = X_existing[expected_existing_user_columns]
+            
 
             prob = existing_user_model.predict_proba(X_existing)[0][1]
             st.metric("Predicted Default Probability", f"{prob:.2%}")
