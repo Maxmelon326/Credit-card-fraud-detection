@@ -13,8 +13,7 @@ expected_new_user_cols = joblib.load("expected_new_user_columns.pkl")  # Add thi
 # Load dataset to identify existing users
 train_data = pd.read_csv("train.csv")
 
-st.title("🏦 
-FinTech Credit Risk Assessment Demo")
+st.title("🏦 FinTech Credit Risk Assessment Demo")
 
 # Step 1: Select user type
 user_type = st.radio("Are you a new or existing user?", ["New User", "Existing User"])
