@@ -6,8 +6,8 @@ from sklearn.impute import SimpleImputer
 from lightgbm import LGBMClassifier
 
 # Load models
-new_user_model = joblib.load("new_user_model")
-existing_user_model = joblib.load("existing_user_model")
+new_user_model = joblib.load("new_user_model.pkl")
+existing_user_model = joblib.load("existing_user_model.pkl")
 
 # Load dataset to identify existing users
 train_data = pd.read_csv("train.csv")
@@ -51,7 +51,6 @@ if user_type == "New User":
         df = df.drop(columns=['owns_house'])
         df = pd.get_dummies(df, columns=['occupation_type'])
 
-        # Expected columns manually defined based on training data
         occupation_dummies = [
             'occupation_type_Accountants', 'occupation_type_Cleaning staff', 'occupation_type_Cooking staff',
             'occupation_type_Core staff', 'occupation_type_Drivers', 'occupation_type_High skill tech staff',
@@ -88,18 +87,27 @@ elif user_type == "Existing User":
     if st.button("Search and Evaluate"):
         if input_id in train_data["customer_id"].values:
             user_row = train_data[train_data["customer_id"] == input_id]
-            X_existing = user_row[[
-                'age', 'net_yearly_income', 'occupation_type', 'no_of_days_employed', 'owns_house', 'total_family_members',
-                'credit_limit', 'credit_limit_used(%)', 'credit_score',
-                'yearly_debt_payments', 'prev_defaults', 'default_in_last_6months']].copy()
 
-            # Preprocessing existing user input
-            for col in X_existing.select_dtypes(include='object').columns:
+            features = [
+                'age', 'net_yearly_income', 'occupation_type', 'no_of_days_employed',
+                'owns_house', 'total_family_members', 'credit_limit',
+                'credit_limit_used(%)', 'credit_score', 'yearly_debt_payments',
+                'prev_defaults', 'default_in_last_6months', 'gender',
+                'owns_car', 'migrant_worker'
+            ]
+            X_existing = user_row[features].copy()
+
+            # Label Encoding
+            categorical_cols = ['occupation_type', 'gender', 'owns_car', 'owns_house', 'migrant_worker']
+            for col in categorical_cols:
                 X_existing[col] = X_existing[col].astype(str)
                 le = joblib.load(f"le_{col}.pkl")
                 X_existing[col] = le.transform(X_existing[col])
 
+            # Feature Engineering
             X_existing['income_per_member'] = X_existing['net_yearly_income'] / (X_existing['total_family_members'] + 1)
+
+            # Impute
             imputer = SimpleImputer(strategy='median')
             X_existing = pd.DataFrame(imputer.fit_transform(X_existing), columns=X_existing.columns)
 
