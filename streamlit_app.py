@@ -66,7 +66,7 @@ if user_type == "New User":
         processed_input = preprocess_new_user(user_input)
         prob = new_user_model.predict_proba(processed_input)[0][1]
         st.metric("Predicted Default Probability", f"{prob:.2%}")
-        if prob < 0.1: # You can set your rejection rate here.
+        if prob < 0.09: # You can set your rejection rate here.
             st.success("✅ Credit Approved")
         else:
             st.error("❌ Credit Rejected")
