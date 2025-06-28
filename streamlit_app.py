@@ -49,8 +49,7 @@ if user_type == "New User":
     # user_input_transformed = preprocess_new_user(user_input)
 
     if st.button("Evaluate Credit"):
-        # prob = new_user_model.predict_proba(user_input_transformed)[0][1]
-        prob = 0.27  # ← Replace with real prediction
+        prob = new_user_model.predict_proba(user_input_transformed)[0][1]
 
         st.metric("Predicted Default Probability", f"{prob:.2%}")
         if prob < 0.1: # You can set the rejection rate here
@@ -70,10 +69,9 @@ elif user_type == "Existing User":
                                    'yearly_debt_payments', 'prev_defaults', 'default_in_last_6months']]
 
             # TO DO: apply preprocessing here (label encoding, fill NA, etc.)
-            # X_existing = preprocess_existing_user(X_existing)
+            X_existing = preprocess_existing_user(X_existing)
 
-            # prob = existing_user_model.predict_proba(X_existing)[0][1]
-            prob = 0.12  # ← Replace with real prediction
+            prob = existing_user_model.predict_proba(X_existing)[0][1]
 
             st.metric("Predicted Default Probability", f"{prob:.2%}")
             if prob < 0.2: # You can set the rejection rate here
