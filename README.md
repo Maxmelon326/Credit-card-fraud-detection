@@ -75,6 +75,6 @@ This project simulates a real-world credit risk assessment system for a fintech 
 ├── expected_new_user_columns.pkl # Expected input columns for new users
 ├── expected_existing_user_columns.pkl # Expected input columns for existing users
 ├── train.csv # Training dataset
-├── test.csv # Test dataset (simulation)
+├── test.csv # Test dataset (simulation in streamlit)
 ├── requirements.txt # Package dependencies
 
