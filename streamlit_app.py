@@ -6,8 +6,8 @@ from sklearn.impute import SimpleImputer
 from lightgbm import LGBMClassifier
 
 # Load models
-new_user_model = joblib.load("new_user_model.pkl")
-existing_user_model = joblib.load("existing_user_model.pkl")
+new_user_model = joblib.load("new_user_model")
+existing_user_model = joblib.load("existing_user_model")
 
 # Load dataset to identify existing users
 train_data = pd.read_csv("train.csv")
