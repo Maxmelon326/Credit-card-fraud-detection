@@ -5,7 +5,7 @@ This project simulates a real-world credit risk assessment system for a fintech 
 ## 🌐 Live Demo
 
 👉 Try the deployed app on **Streamlit Cloud**:  
-**🔗 [[https://your-streamlit-app-url](https://your-streamlit-app-url)](https://credit-card-fraud-detection-vvzvrwbofbso9yk4tv8trm.streamlit.app/)**
+**🔗(https://your-streamlit-app-url)](https://credit-card-fraud-detection-vvzvrwbofbso9yk4tv8trm.streamlit.app/)**
 
 - No installation required
 - Runs in-browser with interactive UI
