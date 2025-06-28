@@ -8,6 +8,7 @@ from lightgbm import LGBMClassifier
 # Load models
 new_user_model = joblib.load("new_user_model")
 existing_user_model = joblib.load("existing_user_model")
+expected_new_user_cols = joblib.load("expected_new_user_columns.pkl")  # Add this line
 
 # Load dataset to identify existing users
 train_data = pd.read_csv("train.csv")
@@ -50,24 +51,13 @@ if user_type == "New User":
         df['is_home_owner'] = df['owns_house']
         df = df.drop(columns=['owns_house'])
         df = pd.get_dummies(df, columns=['occupation_type'])
-
-        occupation_dummies = [
-            'occupation_type_Accountants', 'occupation_type_Cleaning staff', 'occupation_type_Cooking staff',
-            'occupation_type_Core staff', 'occupation_type_Drivers', 'occupation_type_High skill tech staff',
-            'occupation_type_HR staff', 'occupation_type_IT staff', 'occupation_type_Laborers',
-            'occupation_type_Low-skill Laborers', 'occupation_type_Managers', 'occupation_type_Medicine staff',
-            'occupation_type_Private service staff', 'occupation_type_Realty agents', 'occupation_type_Sales staff',
-            'occupation_type_Secretaries', 'occupation_type_Security staff', 'occupation_type_Unknown',
-            'occupation_type_Waiters/barmen staff'
-        ]
-
-        for col in occupation_dummies:
+    
+        # Align with training features
+        for col in expected_new_user_cols:
             if col not in df.columns:
                 df[col] = 0
-
-        final_cols = ['age', 'net_yearly_income', 'no_of_days_employed', 'total_family_members',
-                      'log_income', 'log_days_employed', 'income_per_member', 'is_home_owner'] + occupation_dummies
-        df = df[final_cols]
+        df = df[expected_new_user_cols]
+    
         return df
 
     if st.button("Evaluate Credit"):
