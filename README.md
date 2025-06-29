@@ -27,7 +27,7 @@ This project simulates a real-world credit risk assessment system for a fintech 
 - 📁 **Deployed as an interactive app using Streamlit**.
 
 ## 📁 Dataset
-
+This data is from Amex Kaggle dataset and can be downloaded from https://www.kaggle.com/datasets/pradip11/amexpert-codelab-2021/data
 - Sourced from a simulated credit card customer dataset (`train.csv` and `test.csv`).
 - Contains demographic, financial, and behavioral features:
   - Age, Income, Employment Duration, Occupation, Credit Score, Previous Defaults, etc.
@@ -68,6 +68,7 @@ This project simulates a real-world credit risk assessment system for a fintech 
 
 ## 📂 Repository Structure
 ```bash
+├── credit_fraud_analysis.ipynb # Build model
 ├── streamlit_app.py # Main app script
 ├── new_user_model.pkl # Trained model for new users
 ├── existing_user_model.pkl # Trained model for existing users
@@ -77,4 +78,5 @@ This project simulates a real-world credit risk assessment system for a fintech 
 ├── train.csv # Training dataset
 ├── test.csv # Test dataset (simulation in streamlit)
 ├── requirements.txt # Package dependencies
+
 
